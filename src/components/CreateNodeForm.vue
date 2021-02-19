@@ -32,7 +32,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const companies = computed(() => deepClone(store.state.companies));
-    const graph = computed(() => deepClone(store.state.graph));
+    const graph = computed(() => store.state.graph);
     const source = ref("");
     const targets = ref(["", "", ""]);
 
@@ -41,25 +41,17 @@ export default defineComponent({
       targets.value = targets.value.filter((_, i) => i !== index);
     };
 
-    const companiesHasValue = value => companies.value.map(x => x.toLowerCase()).includes(value.toLowerCase());
-
     const newCompanies = computed(() => {
       const newCompanies = [];
 
-      // Add new companies from source input.
-      if (!companiesHasValue(source.value)) {
-        newCompanies.push(source.value);
-      }
+      newCompanies.push(source.value);
 
       // Add new companies from target inputs.
       targets.value.forEach(target => {
-        companiesHasValue(target);
-        if (!companiesHasValue(target)) {
-          newCompanies.push(target);
-        }
+        newCompanies.push(target);
       });
 
-      return newCompanies.filter(item => item.length);
+      return Array.from(new Set(newCompanies.filter(item => item.length)));
     });
 
     const createNode = e => {
@@ -67,15 +59,12 @@ export default defineComponent({
 
       if (!source.value.length || !targets.value.length || targets.value.every(target => !target.length)) return;
 
-      // Update companies list.
-      store.dispatch("updateCompanies", [...companies.value, ...newCompanies.value]);
-
-      // Update graph nodes and links.
-      const newGraph = graph.value;
+      const newGraph = deepClone(graph.value);
       const filteredTargets = targets.value.filter(target => target.length);
-      newGraph.nodes = createNodes(companies.value);
+      newGraph.nodes = [...newGraph.nodes, ...createNodes([source.value, ...filteredTargets])];
       newGraph.links = [...newGraph.links, ...createLinks(source.value)(filteredTargets)];
 
+      store.dispatch("updateCompanies", [...companies.value, ...newCompanies.value]);
       store.dispatch("updateGraph", newGraph);
       source.value = "";
       targets.value = ["", "", ""];

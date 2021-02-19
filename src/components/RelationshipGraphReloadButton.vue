@@ -1,5 +1,5 @@
 <template>
-  <input type="button" value="Reload Graph" @click="reload" />
+  <button @click="reload">Reload Graph</button>
 </template>
 
 <script>

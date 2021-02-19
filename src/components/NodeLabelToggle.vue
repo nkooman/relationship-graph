@@ -1,5 +1,5 @@
 <template>
-  <label>
+  <label class="show-labels">
     Show Labels?
     <input type="checkbox" v-model="showLabels" @change="toggleShowLabels" />
   </label>
@@ -27,3 +27,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.show-labels {
+  justify-self: flex-start;
+}
+</style>

@@ -14,7 +14,7 @@ export default defineComponent({
   name: "RelationshipGraph",
   setup() {
     const store = useStore();
-    const graph = computed(() => deepClone(store.state.graph));
+    const graph = computed(() => store.state.graph);
     const showLabels = computed(() => store.state.showLabels);
     const svgRef = ref();
 
@@ -26,6 +26,7 @@ export default defineComponent({
     };
 
     const reallyDumbSolution = () => {
+      const graphToBeMutated = deepClone(graph.value);
       killChildren(svgRef.value);
       const svg = d3.select("svg");
       const width = svg.attr("width");
@@ -42,11 +43,11 @@ export default defineComponent({
       );
 
       const simulation = d3
-        .forceSimulation(graph.value.nodes)
+        .forceSimulation(graphToBeMutated.nodes)
         .force(
           "link",
           d3
-            .forceLink(graph.value.links)
+            .forceLink(graphToBeMutated.links)
             .id(node => node.name)
             .strength(0.25)
         )
@@ -65,7 +66,7 @@ export default defineComponent({
         .append("g")
         .attr("class", "links")
         .selectAll("line")
-        .data(graph.value.links)
+        .data(graphToBeMutated.links)
         .join(enter =>
           enter
             .append("line")
@@ -77,7 +78,7 @@ export default defineComponent({
         .append("g")
         .attr("class", "nodes")
         .selectAll("g")
-        .data(graph.value.nodes)
+        .data(graphToBeMutated.nodes)
         .join("g");
 
       nodes
@@ -85,9 +86,7 @@ export default defineComponent({
         .attr("stroke", "white")
         .attr("fill", "#9b4dca")
         .attr("stroke-width", 3)
-        .attr("r", 6)
-        .append("title")
-        .text(d => d.name);
+        .attr("r", 6);
 
       nodes
         .append("text")
@@ -149,6 +148,7 @@ export default defineComponent({
     });
 
     watch(graph, () => {
+      console.log(graph.value);
       reallyDumbSolution();
     });
 

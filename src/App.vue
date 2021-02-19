@@ -7,8 +7,10 @@
       <hr />
       <div class="settings">
         <NodeLabelToggle />
-        <ClearLocalStorageInput />
+        <ResetDataInput />
+        <CreateRandomDataInput />
         <RelationshipGraphReloadButton />
+        <RemoveAllDataInput />
       </div>
     </div>
     <RelationshipGraph />
@@ -18,9 +20,11 @@
 <script>
 import { defineComponent, provide } from "vue";
 import mitt from "mitt";
-import ClearLocalStorageInput from "@/components/ClearLocalStorageInput";
+import ResetDataInput from "@/components/ResetDataInput";
 import CreateNodeForm from "@/components/CreateNodeForm";
+import CreateRandomDataInput from "@/components/CreateRandomDataInput";
 import NodeLabelToggle from "@/components/NodeLabelToggle";
+import RemoveAllDataInput from "@/components/RemoveAllDataInput";
 import RemoveNodeForm from "@/components/RemoveNodeForm";
 import RelationshipGraph from "@/components/RelationshipGraph";
 import RelationshipGraphReloadButton from "@/components/RelationshipGraphReloadButton";
@@ -28,9 +32,11 @@ import RelationshipGraphReloadButton from "@/components/RelationshipGraphReloadB
 export default defineComponent({
   name: "App",
   components: {
-    ClearLocalStorageInput,
+    ResetDataInput,
     CreateNodeForm,
+    CreateRandomDataInput,
     NodeLabelToggle,
+    RemoveAllDataInput,
     RemoveNodeForm,
     RelationshipGraph,
     RelationshipGraphReloadButton

@@ -29,3 +29,182 @@ export const defaultCompanies = [
   "Upper Peninsula Power Company",
   "Zingerman's"
 ];
+
+export const defaultGraph = {
+  nodes: [
+    {
+      name: "ACD"
+    },
+    {
+      name: "Amway"
+    },
+    {
+      name: "Amway North America"
+    },
+    {
+      name: "Arcadia Brewing Company"
+    },
+    {
+      name: "Art Van"
+    },
+    {
+      name: "Better Made Potato Chips"
+    },
+    {
+      name: "Big Boy Restaurants"
+    },
+    {
+      name: "Coffee Beanery"
+    },
+    {
+      name: "The Delfield Company"
+    },
+    {
+      name: "Founders Brewing Company"
+    },
+    {
+      name: "Gordon Food Service"
+    },
+    {
+      name: "Guardian Industries"
+    },
+    {
+      name: "Hot 'n Now"
+    },
+    {
+      name: "Independent Bank"
+    },
+    {
+      name: "Jiffy mix"
+    },
+    {
+      name: "JSTOR"
+    },
+    {
+      name: "Jet's Pizza"
+    },
+    {
+      name: "Meritor"
+    },
+    {
+      name: "Michigan Sugar"
+    },
+    {
+      name: "Miller, Canfield, Paddock and Stone"
+    },
+    {
+      name: "Perrigo"
+    },
+    {
+      name: "Stryker Corporation"
+    },
+    {
+      name: "Upper Peninsula Power Company"
+    },
+    {
+      name: "Zingerman's"
+    }
+  ],
+  links: [
+    {
+      source: "Amway",
+      target: "JSTOR"
+    },
+    {
+      source: "Amway North America",
+      target: "Michigan Sugar"
+    },
+    {
+      source: "Amway North America",
+      target: "Jet's Pizza"
+    },
+    {
+      source: "Arcadia Brewing Company",
+      target: "The Delfield Company"
+    },
+    {
+      source: "Art Van",
+      target: "Michigan Sugar"
+    },
+    {
+      source: "Art Van",
+      target: "JSTOR"
+    },
+    {
+      source: "Coffee Beanery",
+      target: "Upper Peninsula Power Company"
+    },
+    {
+      source: "The Delfield Company",
+      target: "Stryker Corporation"
+    },
+    {
+      source: "The Delfield Company",
+      target: "Jet's Pizza"
+    },
+    {
+      source: "Founders Brewing Company",
+      target: "Jiffy mix"
+    },
+    {
+      source: "Founders Brewing Company",
+      target: "Stryker Corporation"
+    },
+    {
+      source: "Guardian Industries",
+      target: "Miller, Canfield, Paddock and Stone"
+    },
+    {
+      source: "Hot 'n Now",
+      target: "Guardian Industries"
+    },
+    {
+      source: "Hot 'n Now",
+      target: "Gordon Food Service"
+    },
+    {
+      source: "Independent Bank",
+      target: "Upper Peninsula Power Company"
+    },
+    {
+      source: "JSTOR",
+      target: "Zingerman's"
+    },
+    {
+      source: "JSTOR",
+      target: "Zingerman's"
+    },
+    {
+      source: "Miller, Canfield, Paddock and Stone",
+      target: "The Delfield Company"
+    },
+    {
+      source: "Miller, Canfield, Paddock and Stone",
+      target: "Guardian Industries"
+    },
+    {
+      source: "Perrigo",
+      target: "ACD"
+    },
+    {
+      source: "Perrigo",
+      target: "The Delfield Company"
+    },
+    {
+      source: "Stryker Corporation",
+      target: "Perrigo"
+    },
+    {
+      source: "Stryker Corporation",
+      target: "Amway North America"
+    },
+    {
+      source: "Upper Peninsula Power Company",
+      target: "Better Made Potato Chips"
+    },
+    {
+      source: "Zingerman's",
+      target: "The Delfield Company"
+    }
+  ]
+};

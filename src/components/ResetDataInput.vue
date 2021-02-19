@@ -1,5 +1,5 @@
 <template>
-  <button @click="clearLocalStorage">Clear Local Storage</button>
+  <button @click="resetDemoData">Reset Demo Data</button>
 </template>
 
 <script>
@@ -7,13 +7,13 @@ import { defineComponent } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "ClearLocalStorageInput",
+  name: "ResetDataInput",
   setup() {
     const store = useStore();
-    const clearLocalStorage = () => store.dispatch("clearLocalStorage");
+    const resetDemoData = () => store.dispatch("resetDemoData");
 
     return {
-      clearLocalStorage
+      resetDemoData
     };
   }
 });

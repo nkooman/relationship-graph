@@ -1,12 +1,14 @@
+import { getRandomIntInclusive } from "@/utils/integer-helpers";
+
 export const createNodes = items => items.map(item => ({ name: item }));
 export const createRandomLinks = nodes =>
   nodes.reduce((accumulator, value) => {
-    const numberOfRandomConnections = Math.floor(Math.random() * Math.floor(5)) + 1;
+    const numberOfRandomConnections = getRandomIntInclusive(0)(2);
     const randomConnections = [];
     const otherNodes = nodes.filter(node => node !== value);
 
     for (let i = 0; i < numberOfRandomConnections; i += 1) {
-      randomConnections.push(otherNodes[Math.floor(Math.random() * Math.floor(otherNodes.length))]);
+      randomConnections.push(otherNodes[getRandomIntInclusive(0)(otherNodes.length - 1)]);
     }
 
     const links = randomConnections.map(connection => ({

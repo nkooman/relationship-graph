@@ -1,6 +1,6 @@
 import VuexPersistence from "vuex-persist";
 import { createStore } from "vuex";
-import { localStorageNamespaces, defaultCompanies } from "@/constants";
+import { localStorageNamespaces, defaultCompanies, defaultGraph } from "@/constants";
 import { createNodes, createRandomLinks } from "@/utils/graph-helpers";
 
 const vuexLocal = new VuexPersistence({
@@ -10,10 +10,7 @@ const vuexLocal = new VuexPersistence({
 export default createStore({
   strict: true,
   state: {
-    graph: {
-      nodes: createNodes(defaultCompanies),
-      links: createRandomLinks(createNodes(defaultCompanies))
-    },
+    graph: defaultGraph,
     companies: defaultCompanies,
     showLabels: true
   },
@@ -27,7 +24,21 @@ export default createStore({
     UPDATE_SHOW_LABELS(state, payload) {
       state.showLabels = payload;
     },
+    CLEAR_LOCAL_STORAGE() {
+      localStorage.removeItem(localStorageNamespaces.companies);
+      localStorage.removeItem(localStorageNamespaces.graph);
+    },
     SET_DEFAULTS(state) {
+      state.companies = defaultCompanies;
+      state.graph = defaultGraph;
+    },
+    SET_EMPTY_GRAPH(state) {
+      state.graph = {
+        nodes: [],
+        links: []
+      };
+    },
+    SET_RANDOM_GRAPH(state) {
       state.companies = defaultCompanies;
       const nodes = createNodes(defaultCompanies);
       const links = createRandomLinks(nodes);
@@ -38,11 +49,17 @@ export default createStore({
     }
   },
   actions: {
-    clearLocalStorage(context) {
-      localStorage.removeItem(localStorageNamespaces.companies);
-      localStorage.removeItem(localStorageNamespaces.graph);
-
-      context.commit("SET_DEFAULTS", defaultCompanies);
+    removeAllData(context) {
+      context.commit("CLEAR_LOCAL_STORAGE");
+      context.commit("SET_EMPTY_GRAPH");
+    },
+    resetDemoData(context) {
+      context.commit("CLEAR_LOCAL_STORAGE");
+      context.commit("SET_DEFAULTS");
+    },
+    createRandomData(context) {
+      context.commit("CLEAR_LOCAL_STORAGE");
+      context.commit("SET_RANDOM_GRAPH");
     },
     updateGraph(context, payload) {
       context.commit("UPDATE_GRAPH", payload);
