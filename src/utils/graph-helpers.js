@@ -3,7 +3,7 @@ import { getRandomIntInclusive } from "@/utils/integer-helpers";
 export const createNodes = items => items.map(item => ({ name: item }));
 export const createRandomLinks = nodes =>
   nodes.reduce((accumulator, value) => {
-    const numberOfRandomConnections = getRandomIntInclusive(0)(2);
+    const numberOfRandomConnections = value.name === "BizStream" ? getRandomIntInclusive(3)(6) : getRandomIntInclusive(0)(2);
     const randomConnections = [];
     const otherNodes = nodes.filter(node => node !== value);
 

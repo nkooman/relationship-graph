@@ -81,7 +81,8 @@ export default defineComponent({
     );
 
     const matches = computed(() => {
-      return allSuggestions.value.filter(str => str.indexOf(selection.value) >= 0);
+      const filteredSuggestions = allSuggestions.value.filter(str => str.indexOf(selection.value) >= 0);
+      return [...filteredSuggestions].sort();
     });
 
     const suggestionClick = index => {

@@ -1,19 +1,20 @@
 <template>
   <div class="content-wrapper">
-    <div class="controls">
-      <CreateNodeForm />
-      <hr />
-      <RemoveNodeForm />
-      <hr />
-      <div class="settings">
-        <NodeLabelToggle />
-        <ResetDataInput />
-        <CreateRandomDataInput />
-        <RelationshipGraphReloadButton />
-        <RemoveAllDataInput />
+    <div class="graph-with-controls">
+      <div class="controls">
+        <CreateNodeForm />
+        <hr />
+        <RemoveNodeForm />
       </div>
+      <RelationshipGraph />
     </div>
-    <RelationshipGraph />
+    <div class="settings">
+      <NodeLabelToggle />
+      <ResetDataInput />
+      <CreateRandomDataInput />
+      <RelationshipGraphReloadButton />
+      <RemoveAllDataInput />
+    </div>
   </div>
 </template>
 
@@ -50,16 +51,26 @@ export default defineComponent({
 
 <style>
 html,
-body {
+body,
+#app {
   padding: 0;
   margin: 0;
   width: 100%;
   height: 100%;
 }
+</style>
 
+<style scoped>
 .content-wrapper {
+  height: 100%;
+}
+
+.graph-with-controls {
   display: grid;
-  grid: 1fr / 1fr 1500px;
+  grid: 1fr / 1fr 4fr;
+  height: calc(100% - 10rem);
+  position: relative;
+  z-index: 0;
 }
 
 .controls {
@@ -67,22 +78,32 @@ body {
   padding: 3rem;
   display: grid;
   grid: auto-flow / 1fr;
-  align-content: space-between;
-
+  align-content: flex-start;
   height: 100%;
+
   box-shadow: inset -10px 0 10px -5px #eee;
 }
 
 .settings {
   display: grid;
-  grid: auto-flow / 1fr;
+  grid: 1fr / auto-flow;
+  align-items: center;
   justify-content: center;
+  gap: 0 3rem;
+  width: 100%;
+  background: #eee;
+  height: 10rem;
+  position: relative;
+  z-index: 10;
+}
+
+.settings :deep(button),
+.settings :deep(.show-labels),
+.settings :deep(.show-labels input[type="checkbox"]) {
+  margin: 0;
 }
 
 .graph {
   font-size: 1.5rem;
-  position: fixed;
-  top: 0;
-  right: 0;
 }
 </style>

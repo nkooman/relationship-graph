@@ -27,9 +27,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped>
-.show-labels {
-  justify-self: flex-start;
-}
-</style>

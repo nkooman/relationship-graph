@@ -1,6 +1,6 @@
 <template>
-  <div :class="['graph', { 'hide-labels': !showLabels }]">
-    <svg ref="svgRef" width="1500" height="900"></svg>
+  <div ref="graphRef" :class="['graph', { 'hide-labels': !showLabels }]">
+    <svg ref="svgRef"></svg>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ export default defineComponent({
     const store = useStore();
     const graph = computed(() => store.state.graph);
     const showLabels = computed(() => store.state.showLabels);
+    const graphRef = ref();
     const svgRef = ref();
 
     const killChildren = parent => {
@@ -28,19 +29,25 @@ export default defineComponent({
     const reallyDumbSolution = () => {
       const graphToBeMutated = deepClone(graph.value);
       killChildren(svgRef.value);
-      const svg = d3.select("svg");
-      const width = svg.attr("width");
-      const height = svg.attr("height");
+      const width = graphRef.value.offsetWidth;
+      // There's something that adds 7 pixels of height to the graph div.
+      // If you were to reload the graph a lot the element would grown in height.
+      const height = graphRef.value.offsetHeight - 7;
+      const svg = d3
+        .select("svg")
+        .attr("width", width)
+        .attr("height", height);
       const container = svg.append("g");
 
-      svg.call(
-        d3
-          .zoom()
-          .scaleExtent([0, 8])
-          .on("zoom", event => {
-            container.attr("transform", event.transform);
-          })
-      );
+      const zoom = d3
+        .zoom()
+        .scaleExtent([0, 8])
+        .on("zoom", event => {
+          container.attr("transform", event.transform);
+        });
+
+      svg.call(zoom);
+      svg.call(zoom.transform, d3.zoomIdentity);
 
       const simulation = d3
         .forceSimulation(graphToBeMutated.nodes)
@@ -84,7 +91,7 @@ export default defineComponent({
       nodes
         .append("circle")
         .attr("stroke", "white")
-        .attr("fill", "#9b4dca")
+        .attr("fill", d => (d.name === "BizStream" ? "red" : "#9b4dca"))
         .attr("stroke-width", 3)
         .attr("r", 6)
         .append("title")
@@ -150,11 +157,11 @@ export default defineComponent({
     });
 
     watch(graph, () => {
-      console.log(graph.value);
       reallyDumbSolution();
     });
 
     return {
+      graphRef,
       svgRef,
       showLabels
     };
@@ -165,5 +172,9 @@ export default defineComponent({
 <style scoped>
 .hide-labels:deep(.node-label) {
   display: none;
+}
+
+.graph {
+  max-height: 100%;
 }
 </style>

@@ -4,6 +4,7 @@ export const localStorageNamespaces = {
 };
 
 export const defaultCompanies = [
+  "BizStream",
   "ACD",
   "Amway",
   "Amway North America",
@@ -32,6 +33,9 @@ export const defaultCompanies = [
 
 export const defaultGraph = {
   nodes: [
+    {
+      name: "BizStream"
+    },
     {
       name: "ACD"
     },
@@ -106,6 +110,26 @@ export const defaultGraph = {
     }
   ],
   links: [
+    {
+      source: "BizStream",
+      target: "The Delfield Company"
+    },
+    {
+      source: "BizStream",
+      target: "Better Made Potato Chips"
+    },
+    {
+      source: "ACD",
+      target: "BizStream"
+    },
+    {
+      source: "Amway North America",
+      target: "BizStream"
+    },
+    {
+      source: "BizStream",
+      target: "Guardian Industries"
+    },
     {
       source: "Amway",
       target: "JSTOR"

@@ -21,7 +21,7 @@ export default defineComponent({
     const store = useStore();
     const graph = computed(() => store.state.graph);
     const companies = computed(() => store.state.companies);
-    const names = computed(() => graph.value.nodes.map(node => node?.name));
+    const names = computed(() => [...graph.value.nodes.map(node => node?.name)].sort());
     const selection = ref();
 
     const removeNode = e => {
