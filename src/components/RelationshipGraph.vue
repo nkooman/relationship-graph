@@ -144,7 +144,6 @@ export default defineComponent({
       reallyDumbSolution();
 
       emitter.on("reloadGraph", () => {
-        console.log("here");
         reallyDumbSolution();
       });
     });

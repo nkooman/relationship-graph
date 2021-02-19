@@ -38,7 +38,6 @@ export default defineComponent({
 
     const addTarget = () => targets.value.push("");
     const removeTarget = index => {
-      console.log(index);
       targets.value = targets.value.filter((_, i) => i !== index);
     };
 
