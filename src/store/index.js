@@ -11,10 +11,10 @@ export default createStore({
   strict: true,
   state: {
     graph: {
-      nodes: [],
-      links: []
+      nodes: createNodes(defaultCompanies),
+      links: createRandomLinks(createNodes(defaultCompanies))
     },
-    companies: [],
+    companies: defaultCompanies,
     showLabels: true
   },
   mutations: {
