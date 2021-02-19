@@ -154,8 +154,7 @@ export default defineComponent({
 
     return {
       svgRef,
-      showLabels,
-      reallyDumbSolution
+      showLabels
     };
   }
 });
