@@ -11,10 +11,10 @@ export default createStore({
   strict: true,
   state: {
     graph: {
-      nodes: null,
-      links: null
+      nodes: [],
+      links: []
     },
-    companies: null,
+    companies: [],
     showLabels: true
   },
   mutations: {
