@@ -86,7 +86,9 @@ export default defineComponent({
         .attr("stroke", "white")
         .attr("fill", "#9b4dca")
         .attr("stroke-width", 3)
-        .attr("r", 6);
+        .attr("r", 6)
+        .append("title")
+        .text(d => d.name);
 
       nodes
         .append("text")
