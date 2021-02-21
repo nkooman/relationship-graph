@@ -61,10 +61,11 @@ export default defineComponent({
 
       const newGraph = deepClone(graph.value);
       const filteredTargets = targets.value.filter(target => target.length);
-      newGraph.nodes = [...newGraph.nodes, ...createNodes([source.value, ...filteredTargets])];
+      const newNodes = [source.value, ...filteredTargets].filter(potentialNode => newGraph.nodes.every(node => node.name !== potentialNode));
+      newGraph.nodes = [...newGraph.nodes, ...createNodes(newNodes)];
       newGraph.links = [...newGraph.links, ...createLinks(source.value)(filteredTargets)];
 
-      store.dispatch("updateCompanies", [...companies.value, ...newCompanies.value]);
+      store.dispatch("updateCompanies", Array.from(new Set([...companies.value, ...newCompanies.value])));
       store.dispatch("updateGraph", newGraph);
       source.value = "";
       targets.value = ["", "", ""];
